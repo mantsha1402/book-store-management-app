@@ -33,9 +33,63 @@ const Books= () => {
         }
         catch(error){
             console.error("Error Fetching Books", error);
-            
+            setLoading(false);
+
+
         }
-    }
+    };
+
+    //Handle form inputs
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
+       
+    };
+
+    //Open Modal for Adding a new book
+    const handleAdd =() => {
+        setFormData({ name: "", category: "", price: ""});
+        setEditId(null);
+        setShowModal(true);
+
+    };
+    
+
+    //Open Modal  for  Editing a book
+
+    const handleEdit = (book) => {
+        setFormData({ name: book.name, category: book.category, price: book.price});
+        setEditId(book.id);
+        setShowModal(true);
+
+    };
+    
+
+    //Submit form (add or edit)
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+        try{
+            if ( editId) {
+                await axios.put(`${API_BASE_URL}/books/${editId}`, formData);
+                alert("Book Updated!");
+            }
+            else{
+                await axios.post(`${API_BASE_URL}/books`, formData);
+                alert("Book Added!");
+            }
+             setShowModal(false);
+             fetchBooks();
+
+        }
+        catch(error){
+            console.error("Error saving book", error);
+
+        }
+    };
+
+    //Delete a Book
+
+    const 
 
 }
 
