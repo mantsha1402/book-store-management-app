@@ -89,7 +89,42 @@ const Books= () => {
 
     //Delete a Book
 
-    const 
+    const handleDelete = async(id) => {
+        if (window.confirm("Are you sure you want to delete this book?")){
+            try{
+                await axios.delete(`${API_BASE_URL}/books/${id}`);
+                alert("Book Deleted");
+                fetchBooks();
+
+            }
+            catch(error){
+                console.error("Error Deleting the Book", error);
+
+            }
+        }
+    };
+
+    return(
+        <div className="container">
+            <h2 className="mt-4">Book List</h2>
+
+            {/* SOrting*/}
+            <div className="mb-3">
+                <label className="me-2">Sort By: </label>
+                <select className="form-select d-inline w-auto" onChange={(e) => setSort(e.target.value)}>
+                    <option value=""> None </option>
+                    <option value="name_asc"> A-Z</option>
+                    <option value="price_asc">Price Low to High </option>
+                    <option value="price_desc">Price High to Low </option>
+                 </select>
+                </div> 
+
+                {/*Filtering*/}
+
+                
+
+        </div>
+    )
 
 }
 
